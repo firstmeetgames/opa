@@ -1,11 +1,11 @@
-FROM docker1.16801.com/ups/golang:1.12.6
+FROM golang:1.12.6
 WORKDIR /go/src/github.com/open-policy-agent/opa
 COPY ./ ./
 RUN apk add build-base
 RUN GOOS=linux go build -o /go/bin/opa
 RUN go build -buildmode=plugin -o=./custom/ldap.so ./custom/ldap.go
 
-FROM docker1.16801.com/ups/golang:1.11.9-alpine3.9
+FROM golang:1.11.9-alpine3.9
 COPY config.yml config.yml
 COPY --from=0 /go/bin/opa /opa
 COPY --from=0 /go/src/github.com/open-policy-agent/opa/custom /plugins

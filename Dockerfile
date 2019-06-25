@@ -1,7 +1,7 @@
 FROM docker1.16801.com/ups/golang:1.11.9-alpine3.9
 WORKDIR /go/src/github.com/open-policy-agent/opa
 COPY ./ ./
-RUN apk update && apk add gcc g++ make libffi-dev openssl-dev
+RUN apk add gcc
 RUN GOOS=linux go build -o /go/bin/opa
 RUN go build -buildmode=plugin -o=./custom/ldap.so ./custom/ldap.go
 

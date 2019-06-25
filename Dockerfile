@@ -1,6 +1,6 @@
 FROM docker1.16801.com/ups/golang:1.11.9-alpine3.9
 WORKDIR /go/src/github.com/open-policy-agent/opa
-COPY ./ ./
+COPY ./* ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /go/bin/opa
 RUN go build -buildmode=plugin -o=./custom/ldap.so ./custom/ldap.go
 

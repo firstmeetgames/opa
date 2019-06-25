@@ -8,6 +8,6 @@ FROM docker1.16801.com/ups/golang:1.11.9-alpine3.9
 COPY config.yml config.yml
 COPY --from=0 /go/bin/opa /opa
 COPY --from=0 /go/src/github.com/open-policy-agent/opa/custom /plugins
-ENTRYPOINT /opa
-CMD --plugin-dir /plugins run --server --addr 0.0.0.0:8080 --config-file config.yaml
+ENTRYPOINT /opa --plugin-dir /plugins
+CMD run --server --addr 0.0.0.0:8080 --config-file config.yaml
 EXPOSE 8080

@@ -1,4 +1,4 @@
-FROM docker1.16801.com/ups/golang:1.11.9-alpine3.9
+FROM docker1.16801.com/ups/golang:1.12.6
 WORKDIR /go/src/github.com/open-policy-agent/opa
 COPY ./ ./
 RUN apk add build-base

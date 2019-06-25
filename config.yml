@@ -1,0 +1,6 @@
+plugins:
+  init_ldap_datas:
+    addr: 192.168.1.74:389
+    base_dn: ou=dev,ou=ups,ou=config,dc=chujian,dc=com
+    username: cn=Manager,dc=chujian,dc=com
+    password: "123456"

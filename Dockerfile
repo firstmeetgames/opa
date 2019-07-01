@@ -8,6 +8,5 @@ FROM golang:1.12.6
 COPY ./config.yml /config.yml
 COPY --from=0 /go/bin/opa /opa
 COPY --from=0 /usr/local/plugins /plugins
-ENTRYPOINT /opa --plugin-dir /plugins
-CMD run --server --addr 0.0.0.0:8080 --config-file /config.yml
+ENTRYPOINT /opa --plugin-dir /plugins run --server --addr 0.0.0.0:8080 --config-file /config.yml
 EXPOSE 8080

@@ -15,6 +15,7 @@ import (
 	"log"
 	"strings"
 	"sync"
+	"time"
 )
 
 const (
@@ -65,11 +66,17 @@ func (Factory) Validate(_ *plugins.Manager, config []byte) (interface{}, error) 
 }
 
 func (s *Synchronizer) Start(ctx context.Context) error {
-	conn, err := s.connectToLdap()
-	if err != nil {
-		log.Println("ldap连接错误", err)
-		return err
+	var conn *ldap.Conn
+	for {
+		con, err := s.connectToLdap()
+		if err == nil {
+			conn = con
+			break
+		}
+		time.Sleep(5 * time.Second)
+		log.Println("ldap连接失败，5秒后重试", err)
 	}
+
 	s.conn = conn
 	datas, err := s.FetchDatasFromLdap()
 	if err != nil {

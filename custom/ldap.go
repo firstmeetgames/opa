@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"github.com/go-ldap/ldap"
@@ -73,8 +72,8 @@ func (s *Synchronizer) Start(ctx context.Context) error {
 			conn = con
 			break
 		}
-		time.Sleep(5 * time.Second)
-		log.Println("ldap连接失败，5秒后重试", err)
+		time.Sleep(10 * time.Second)
+		log.Println("ldap连接失败，10秒后重试", err)
 	}
 
 	s.conn = conn
@@ -149,10 +148,10 @@ func (s *Synchronizer) connectToLdap() (conn *ldap.Conn, err error) {
 	if err != nil {
 		return
 	}
-	err = conn.StartTLS(&tls.Config{InsecureSkipVerify: true})
+	/*err = conn.StartTLS(&tls.Config{InsecureSkipVerify: true})
 	if err != nil {
 		return
-	}
+	}*/
 	err = conn.Bind(s.config.Username, s.config.Password)
 	if err != nil {
 		return

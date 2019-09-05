@@ -130,8 +130,7 @@ func (s *Synchronizer) writeModules(ctx context.Context, txn storage.Transaction
 	for _, file := range files {
 		modules[file.Path] = file.Parsed
 	}
-	compiler := ast.NewCompiler().
-		WithPathConflictsCheck(storage.NonEmpty(ctx, s.manager.Store, txn))
+	compiler := s.manager.GetCompiler()
 	if compiler.Compile(modules); compiler.Failed() {
 		return compiler.Errors
 	}
